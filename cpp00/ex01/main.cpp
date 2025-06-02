@@ -1,4 +1,4 @@
-
+#include <stdio.h>
 #include <cstdlib>
 #include "Contact.hpp"
 #include "PhoneBook.hpp"
@@ -7,8 +7,8 @@ static std::string get_input(std::string prompt)
 {
 	std::cout << prompt;
 	std::string input;
-	std::cin >> input;
-	std::cout << std::endl;
+	while (!input.length())
+		std::getline(std::cin, input);
 
 	return input;
 }
