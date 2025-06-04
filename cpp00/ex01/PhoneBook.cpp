@@ -48,6 +48,7 @@ size_t PhoneBook::get_contact_count()
 
 void PhoneBook::print_contacts()
 {
+	std::cout << "     Index|First Name| Last Name|  Nickname" << std::endl;
 	std::stringstream ss;
 	for (size_t i = 0; i < contact_count; i++)
 	{

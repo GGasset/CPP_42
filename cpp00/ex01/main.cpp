@@ -5,10 +5,25 @@
 
 static std::string get_input(std::string prompt)
 {
-	std::cout << prompt;
 	std::string input;
-	while (!input.length())
-		std::getline(std::cin, input);
+	std::cout << prompt;
+	while (input.empty())
+	{
+		std::string tmp;
+		std::getline(std::cin, tmp, '\n');
+		
+
+		int empty = true;
+		for (size_t i = 0; i < tmp.length(); i++)
+			empty = empty && isspace(tmp.at(i));
+		if (!empty) input += tmp;
+
+		if (std::cin.eof() == 1) {
+			std::cin.clear();
+			std::cin.ignore();
+			exit(1);
+		}
+	}
 
 	return input;
 }
