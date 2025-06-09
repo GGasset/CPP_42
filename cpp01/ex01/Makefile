@@ -2,7 +2,7 @@
 
 CPP_FILES=Zombie.cpp main.cpp zombieHorde.cpp
 O_FILES=$(patsubst %.cpp,%.o,$(CPP_FILES))
-NAME=zombie
+NAME=zombie_horde
 COMPILATION_FLAGS=-c -Wall -Werror -Wextra -std=c++98
 
 
