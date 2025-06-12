@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	*ft_index_replace(char *s, size_t start, size_t replace_len, char *new)
+char	*ft_index_replace(char *s, size_t start, size_t replace_len, char *_new)
 {
 	size_t	new_len;
 	size_t	s_new_len;
@@ -20,7 +20,7 @@ char	*ft_index_replace(char *s, size_t start, size_t replace_len, char *new)
 
 	if (!s)
 		return (0);
-	new_len = ft_strlen(new);
+	new_len = ft_strlen(_new);
 	s_new_len = ft_strlen(s);
 	if (start + replace_len > s_new_len)
 		replace_len = s_new_len - start;
@@ -30,7 +30,7 @@ char	*ft_index_replace(char *s, size_t start, size_t replace_len, char *new)
 		return (0);
 	out[s_new_len] = 0;
 	ft_memcpy(out, s, start);
-	ft_memcpy(out + start, new, new_len);
+	ft_memcpy(out + start, _new, new_len);
 	ft_memcpy(out + start + new_len, s + start + replace_len,
 		ft_strlen(s + start + replace_len));
 	free(s);

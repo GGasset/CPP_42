@@ -12,10 +12,15 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
-	if (!std::ifstream(argv[1]).good()) {
-		std::cout << "Error: file does not exist" << std::endl;
+	std::ifstream instream(argv[1]);
+	if (!instream.good()) {
+		std::cout << "Error opening file" << std::endl;
 		return 0;
 	}
+	std::stringstream infile_contents_buffer;
+	infile_contents_buffer << instream.rdbuf();
+	instream.close();
 
-	
+	std::string infile = infile_contents_buffer.str();
+	ft_replace();
 }

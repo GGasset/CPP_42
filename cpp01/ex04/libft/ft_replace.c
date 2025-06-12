@@ -12,18 +12,18 @@
 
 #include "libft.h"
 
-char	*ft_replace(char *s, char *old, char *new, int free_s)
+char	*ft_replace(char *s, char *old, char *replacer, int free_s)
 {
 	size_t	s_len;
 	size_t	old_len;
 	size_t	new_len;
 	size_t	replace_start;
 
-	if (!s || !old || !new)
+	if (!s || !old || !replacer)
 		return (0);
 	s_len = ft_strlen(s);
 	old_len = ft_strlen(old);
-	new_len = ft_strlen(new);
+	new_len = ft_strlen(replacer);
 	replace_start = (size_t)ft_strnstr(s, old, s_len);
 	if (replace_start)
 		replace_start -= (size_t)s;
@@ -32,7 +32,7 @@ char	*ft_replace(char *s, char *old, char *new, int free_s)
 	while (ft_strnstr(s, old, s_len))
 	{
 		s = ft_strdup_free(s, 1);
-		s = ft_index_replace(s, replace_start, old_len, new);
+		s = ft_index_replace(s, replace_start, old_len, replacer);
 		replace_start = (size_t)ft_strnstr(s + replace_start + new_len, old,
 				s_len - replace_start);
 		if (replace_start)
