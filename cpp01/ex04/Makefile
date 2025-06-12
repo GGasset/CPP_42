@@ -9,7 +9,7 @@ LIBFT_NAME=./libft/libft.a
 
 all: ${NAME}
 
-${NAME}: libft ${O_FILES}
+${NAME}: libft-all ${O_FILES}
 	c++ -o ${NAME} ${O_FILES} ${LIBFT_NAME}
 
 %.o: %.cpp
@@ -23,10 +23,10 @@ fclean: clean
 clean: libft_fclean
 	rm -f ${O_FILES}
 
-libft:
+libft-all:
 	make --directory=./libft all
 
 libft_fclean:
 	make --directory=./libft fclean
 
-.phony: all ${NAME} re fclean clean libft libft_fclean
+.phony: all ${NAME} re fclean clean libft-all libft_fclean
