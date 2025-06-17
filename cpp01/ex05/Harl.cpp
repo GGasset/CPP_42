@@ -40,7 +40,7 @@ void Harl::complain(std::string level)
 	for (; i < 4 && levels[i] != level; i++) {}
 	if (i >= 4)
 	{
-		std::cout << "ERR: level not found" << std::endl;
+		std::cout << "Probably complaining about significant stuff" << std::endl;
 		return;
 	}
 
