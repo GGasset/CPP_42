@@ -18,7 +18,7 @@ public:
 
 	~Fixed();
 
-	int getRawBits() const;
+	int getRawBits( void ) const;
 	void setRawBits(int const raw);
 };
 
