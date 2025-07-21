@@ -178,7 +178,7 @@ Fixed::Fixed(const float n)
 
 		out += bit_value << (fractionalBits - i - 1);
 	}
-	bytes = out;
+	bytes = out + (tmp != 0);
 }
 
 float Fixed::toFloat(void) const
