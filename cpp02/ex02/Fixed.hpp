@@ -33,6 +33,14 @@ public:
 	Fixed operator*(const Fixed &other);
 	Fixed operator/(const Fixed &other);
 
+	// Pre increment (++x) increments and returns *this
+	Fixed &operator++();
+	Fixed &operator--();
+
+	// Post increment (x++) returns a copy of the object before the increment
+	Fixed operator++(int);
+	Fixed operator--(int);
+
 	Fixed(const int n);
 	Fixed(const float n);
 	float toFloat( void ) const;

@@ -108,6 +108,36 @@ Fixed Fixed::operator/(const Fixed &other)
 	return out;
 }
 
+Fixed &Fixed::operator++()
+{
+	bytes++;
+	return *this;
+}
+
+Fixed &Fixed::operator--()
+{
+	bytes--;
+	return *this;
+}
+
+Fixed Fixed::operator++(int)
+{
+	Fixed tmp;
+	tmp.setRawBits(bytes);
+
+	bytes++;
+	return tmp;
+}
+
+Fixed Fixed::operator--(int)
+{
+	Fixed tmp;
+	tmp.setRawBits(bytes);
+
+	bytes--;
+	return tmp;
+}
+
 Fixed::Fixed(const int n) : bytes( (int)((unsigned int)n <<  fractionalBits))
 {
 	std::cout << "int constructor called" << std::endl;
