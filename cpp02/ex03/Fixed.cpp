@@ -24,6 +24,7 @@ std::ostream& operator<<(std::ostream& os, const Fixed& fixed)
 	float value = fixed.toFloat();
 
 	os << value;
+	return os;
 }
 
 Fixed::~Fixed()
