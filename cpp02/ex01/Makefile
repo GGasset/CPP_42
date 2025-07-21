@@ -2,7 +2,7 @@
 
 CPP_FILES=main.cpp Fixed.cpp
 O_FILES=$(patsubst %.cpp,%.o,$(CPP_FILES))
-NAME=harlFilter
+NAME=fixed
 COMPILATION_FLAGS=-c -g -Wall -Werror -Wextra -std=c++98
 
 all: ${NAME}
