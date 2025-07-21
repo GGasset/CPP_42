@@ -140,22 +140,22 @@ Fixed Fixed::operator--(int)
 
 Fixed &Fixed::min(Fixed &a, Fixed &b)
 {
-	a < b ? a : b;
+	return a < b ? a : b;
 }
 
-Fixed &Fixed::min(const Fixed &a, const Fixed &b)
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b)
 {
-	a.getRawBits() < b.getRawBits() ? a : b;
+	return a.getRawBits() < b.getRawBits() ? a : b;
 }
 
 Fixed &Fixed::max(Fixed &a, Fixed &b)
 {
-	a > b ? a : b;
+	return a > b ? a : b;
 }
 
-Fixed &Fixed::max(const Fixed &a, const Fixed &b)
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b)
 {
-	a.getRawBits() > b.getRawBits() ? a : b;
+	return a.getRawBits() > b.getRawBits() ? a : b;
 }
 
 Fixed::Fixed(const int n) : bytes( (int)((unsigned int)n <<  fractionalBits))
