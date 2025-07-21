@@ -96,7 +96,7 @@ Fixed Fixed::operator*(const Fixed &other)
 {
 	Fixed out;
 
-	out.setRawBits(bytes * other.bytes);
+	out.setRawBits((bytes * other.bytes) >> fractionalBits);
 	return out;
 }
 
@@ -104,7 +104,7 @@ Fixed Fixed::operator/(const Fixed &other)
 {
 	Fixed out;
 
-	out.setRawBits(bytes / other.bytes);
+	out.setRawBits(((__int64_t)bytes * (1 << fractionalBits)) / other.bytes);
 	return out;
 }
 
