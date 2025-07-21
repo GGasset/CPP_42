@@ -46,6 +46,68 @@ void Fixed::setRawBits(int const raw)
 	bytes = raw;
 }
 
+bool Fixed::operator>(const Fixed &other)
+{
+	return bytes > other.bytes;
+}
+
+bool Fixed::operator<(const Fixed &other)
+{
+	return bytes < other.bytes;
+}
+
+bool Fixed::operator>=(const Fixed &other)
+{
+	return bytes >= other.bytes;
+}
+
+bool Fixed::operator<=(const Fixed &other)
+{
+	return bytes <= other.bytes;
+}
+
+bool Fixed::operator==(const Fixed &other)
+{
+	return bytes == other.bytes;
+}
+
+bool Fixed::operator!=(const Fixed &other)
+{
+	return bytes != other.bytes;
+}
+
+Fixed Fixed::operator+(const Fixed &other)
+{
+	Fixed out;
+
+	out.setRawBits(bytes + other.bytes);
+	return out;
+}
+
+Fixed Fixed::operator-(const Fixed &other)
+{
+	Fixed out;
+
+	out.setRawBits(bytes - other.bytes);
+	return out;
+}
+
+Fixed Fixed::operator*(const Fixed &other)
+{
+	Fixed out;
+
+	out.setRawBits(bytes * other.bytes);
+	return out;
+}
+
+Fixed Fixed::operator/(const Fixed &other)
+{
+	Fixed out;
+
+	out.setRawBits(bytes / other.bytes);
+	return out;
+}
+
 Fixed::Fixed(const int n) : bytes( (int)((unsigned int)n <<  fractionalBits))
 {
 	std::cout << "int constructor called" << std::endl;

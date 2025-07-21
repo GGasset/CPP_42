@@ -21,12 +21,17 @@ public:
 	int getRawBits( void ) const;
 	void setRawBits(int const raw);
 
-	bool &operator>(const Fixed &other);
-	bool &operator<(const Fixed &other);
-	bool &operator>=(const Fixed &other);
-	bool &operator<=(const Fixed &other);
-	bool &operator==(const Fixed &other);
-	bool &operator!=(const Fixed &other);
+	bool operator>(const Fixed &other);
+	bool operator<(const Fixed &other);
+	bool operator>=(const Fixed &other);
+	bool operator<=(const Fixed &other);
+	bool operator==(const Fixed &other);
+	bool operator!=(const Fixed &other);
+
+	Fixed operator+(const Fixed &other);
+	Fixed operator-(const Fixed &other);
+	Fixed operator*(const Fixed &other);
+	Fixed operator/(const Fixed &other);
 
 	Fixed(const int n);
 	Fixed(const float n);
