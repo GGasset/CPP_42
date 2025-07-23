@@ -1,9 +1,9 @@
-#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
 int main(void)
 {
-	ScavTrap energy_defficient("Energy defficient ScavTrap");
-	for (size_t i = 0; i < 51; i++)
+	FragTrap energy_defficient("Energy defficient FragTrap");
+	for (size_t i = 0; i < 101; i++)
 	{
 		energy_defficient.attack("Imaginary target");
 	}
@@ -12,10 +12,10 @@ int main(void)
 	std::cout << std::endl;
 	std::cout << std::endl;
 
-	ScavTrap dead("ScavTrap about to die");
+	FragTrap dead("FragTrap about to die");
 	for (size_t i = 0; i < 6; i++)
 	{
-		dead.takeDamage(21);
+		dead.takeDamage(26);
 		dead.attack("Practice target");
 		dead.beRepaired(1);
 		std::cout << std::endl;

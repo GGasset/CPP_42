@@ -1,6 +1,6 @@
 
 
-CPP_FILES=main.cpp ClapTrap.cpp ScavTrap.cpp
+CPP_FILES=main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
 O_FILES=$(patsubst %.cpp,%.o,$(CPP_FILES))
 NAME=ScavTrap
 COMPILATION_FLAGS=-c -g -Wall -Werror -Wextra -std=c++98
