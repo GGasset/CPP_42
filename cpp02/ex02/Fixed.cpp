@@ -173,7 +173,7 @@ Fixed::Fixed(const float n)
 	float bit_position_value = .5;
 	for (size_t i = 0; i < fractionalBits && tmp; i++, bit_position_value /= 2)
 	{
-		int bit_value = tmp > bit_position_value;
+		int bit_value = tmp >= bit_position_value;
 		tmp -= bit_position_value * bit_value;
 
 		out += bit_value << (fractionalBits - i - 1);
