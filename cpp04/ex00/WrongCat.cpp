@@ -22,3 +22,8 @@ WrongCat::~WrongCat()
 {
 	std::cout << "Wrong cat destructor called" << std::endl;
 }
+
+void WrongCat::makeSound()
+{
+	std::cout << "[ Cat noises can be heard, it somehow feels wrong... ]"
+}
