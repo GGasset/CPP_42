@@ -23,6 +23,11 @@ WrongAnimal::~WrongAnimal()
 	std::cout << "Wrong animal destructor called" << std::endl;
 }
 
+std::string WrongAnimal::getType() const
+{
+	return type;
+}
+
 void WrongAnimal::makeSound() const
 {
 	std::cout << "[A strange sound is heard and ignored coming from the background, it somehow feels wrong ]" << std::endl;

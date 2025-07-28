@@ -15,4 +15,15 @@ int main()
 	i->makeSound(); //will output the cat sound!
 	j->makeSound();
 	meta->makeSound();
+
+	delete meta;
+	delete j;
+	delete i;
+
+	WrongAnimal* wrong_cat = new WrongCat();
+	wrong_cat->makeSound();
+	std::cout << wrong_cat->getType() << std::endl;
+	delete wrong_cat;
+
+	return 0;
 }
