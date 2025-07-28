@@ -15,7 +15,7 @@ public:
 	WrongAnimal &operator=(const WrongAnimal &src);
 	~WrongAnimal();
 
-	void makeSound();
+	void makeSound() const;
 };
 
 #endif

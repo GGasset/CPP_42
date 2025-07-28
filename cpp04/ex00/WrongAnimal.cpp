@@ -23,7 +23,7 @@ WrongAnimal::~WrongAnimal()
 	std::cout << "Wrong animal destructor called" << std::endl;
 }
 
-void WrongAnimal::makeSound()
+void WrongAnimal::makeSound() const
 {
 	std::cout << "[A strange sound is heard and ignored coming from the background, it somehow feels wrong ]" << std::endl;
 }

@@ -16,6 +16,7 @@ Cat::Cat(const Cat &src)
 Cat &Cat::operator=(const Cat &src)
 {
 	std::cout << "Cat assignment operator called" << std::endl;
+	type = src.type;
 	return *this;
 }
 
@@ -24,7 +25,7 @@ Cat::~Cat()
 	std::cout << "Cat destructor called" << std::endl;
 }
 
-void Cat::makeSound()
+void Cat::makeSound() const
 {
 	std::cout << "Meow" << std::endl;
 }
