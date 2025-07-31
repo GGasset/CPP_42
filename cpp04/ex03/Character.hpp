@@ -21,6 +21,7 @@ public:
 	std::string const & getName() const;
 	void equip(AMateria* m);
 	void unequip(int idx);
+	void unequip_delete(int idx);
 	AMateria *getMateria(int idx);
 	void use(int idx, ICharacter& target);
 };
