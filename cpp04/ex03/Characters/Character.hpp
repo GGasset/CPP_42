@@ -5,7 +5,7 @@
 #include "ICharacter.hpp"
 #include "cstring"
 
-class Character : ICharacter
+class Character : public ICharacter
 {
 protected:
 	static const size_t inventory_size = 4;
