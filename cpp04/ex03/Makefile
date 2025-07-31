@@ -8,7 +8,7 @@ Materia=$(addprefix Materias/,$(RAW_MATERIAS))
 RAW_CHARACTERS=Character.cpp
 Characters=$(addprefix Characters/,$(RAW_CHARACTERS))
 
-CPP_FILES=
+CPP_FILES=main.cpp
 CPP_FILES+=$(Materia)
 CPP_FILES+=$(Characters)
 O_FILES=$(patsubst %.cpp,%.o,$(CPP_FILES))
