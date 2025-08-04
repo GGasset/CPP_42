@@ -1,6 +1,6 @@
 
 
-CPP_FILES=main.cpp Animal.cpp Cat.cpp Dog.cpp
+CPP_FILES=main.cpp Animal.cpp Cat.cpp Dog.cpp Brain.cpp
 O_FILES=$(patsubst %.cpp,%.o,$(CPP_FILES))
 NAME=Animal
 COMPILATION_FLAGS=-c -g -Wall -Werror -Wextra -std=c++98
