@@ -21,6 +21,7 @@ AMateria &AMateria::operator=(const AMateria &src)
 {
 	std::cout << "AMateria assignment operator called, Copy the pointer or use clone() method" << std::endl;
 	type = src.type;
+	return *this;
 }
 
 AMateria::~AMateria()

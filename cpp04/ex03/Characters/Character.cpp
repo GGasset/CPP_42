@@ -31,6 +31,7 @@ Character &Character::operator=(const Character &src)
 
 		if (src.inventory[i]) inventory[i] = src.inventory[i]->clone();
 	}
+	return *this;
 }
 
 Character::~Character()
@@ -49,6 +50,7 @@ std::string const &Character::getName() const
 
 void Character::equip(AMateria *m)
 {
+	if (!m) return;
 	for (size_t i = 0; i < inventory_size; i++)
 		if (!inventory[i])
 		{
@@ -59,7 +61,7 @@ void Character::equip(AMateria *m)
 
 void Character::unequip(int idx)
 {
-	if (idx < 0 || idx >= inventory_size) return;
+	if (idx < 0 || (size_t)idx >= inventory_size) return;
 	inventory[idx] = 0;
 }
 
@@ -72,13 +74,13 @@ void Character::unequip_delete(int idx)
 
 AMateria *Character::getMateria(int idx)
 {
-	if (idx < 0 || idx >= inventory_size) return;
+	if (idx < 0 || (size_t)idx >= inventory_size) return 0;
 	return inventory[idx];
 }
 
 void Character::use(int idx, ICharacter &target)
 {
-	if (idx < 0 || idx >= inventory_size) return;
+	if (idx < 0 || (size_t)idx >= inventory_size) return;
 	if (!inventory[idx]) return;
 
 	inventory[idx]->use(target);

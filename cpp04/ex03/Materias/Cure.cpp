@@ -16,6 +16,7 @@ Cure &Cure::operator=(const Cure &src)
 {
 	type = src.type;
 	std::cout << "Cure copy assignment called" << std::endl;
+	return *this;
 }
 
 Cure::~Cure()

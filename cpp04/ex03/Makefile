@@ -14,7 +14,7 @@ CPP_FILES+=$(Characters)
 O_FILES=$(patsubst %.cpp,%.o,$(CPP_FILES))
 
 INCLUDE=-I Characters -I Materias -I Materias/Sources
-COMPILATION_FLAGS=-c -g -Wall -Werror -Wextra -std=c++98
+COMPILATION_FLAGS= $(INCLUDE) -c -g3 -Wall -Werror -Wextra -std=c++98
 NAME=MateriaWorld
 
 all: ${NAME}
@@ -23,7 +23,7 @@ ${NAME}: ${O_FILES}
 	c++ -o ${NAME} ${O_FILES} ${LIBFT_NAME}
 
 %.o: %.cpp
-	c++ ${COMPILATION_FLAGS} $?
+	c++ ${COMPILATION_FLAGS} -o $@ $?
 
 re: fclean all
 

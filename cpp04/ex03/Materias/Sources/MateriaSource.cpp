@@ -24,6 +24,7 @@ MateriaSource &MateriaSource::operator=(const MateriaSource &src)
 		}
 		if (src.learned_materias[i]) learned_materias[i] = src.learned_materias[i]->clone();
 	}
+	return *this;
 }
 
 MateriaSource::~MateriaSource()
@@ -40,17 +41,13 @@ void MateriaSource::learnMateria(AMateria *materia)
 {
 	if (!materia) return;
 	for (size_t i = 0; i < max_spell_count; i++)
-		if (!learned_materias[i]) learned_materias[i] = materia->clone();	
+		if (!learned_materias[i]) {learned_materias[i] = materia->clone(); break; }
 }
 
 AMateria *MateriaSource::createMateria(std::string const &type)
 {
 	for (size_t i = 0; i < max_spell_count; i++)
-	{
 		if (learned_materias[i] && learned_materias[i]->getType() == type)
-		{
 			return learned_materias[i]->clone();
-		}
-	}
 	return 0;
 }
