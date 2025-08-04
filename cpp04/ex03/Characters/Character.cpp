@@ -10,7 +10,7 @@ Character::Character()
 Character::Character(const std::string name)
 {
 	std::cout << "Character constructor called" << std::endl;
-	*this = Character();
+	std::memset(inventory, 0, sizeof(AMateria *) * inventory_size);
 	this->name = name; 
 }
 
