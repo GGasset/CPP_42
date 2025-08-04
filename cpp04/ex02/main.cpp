@@ -24,10 +24,12 @@ int main()
 	tmp->get_brain()->set_idea(0, "Monkey climb tree, monkey no taxes, mokey free.");
 	
 	*copy_test = *tmp;
+
 	std::cout << "Idea 0 after copy " << copy_test->get_brain()->get_idea(0) << std::endl;
 
 	std::cout << std::endl << std::endl << "----------------------" << std::endl << std::endl;
 
+	delete copy_test;
 	for (size_t i = 0; i < animal_n; i++)
 		delete animals[i];
 	delete[] animals;
