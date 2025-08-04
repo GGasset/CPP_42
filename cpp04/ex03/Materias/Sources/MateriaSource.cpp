@@ -41,7 +41,7 @@ void MateriaSource::learnMateria(AMateria *materia)
 {
 	if (!materia) return;
 	for (size_t i = 0; i < max_spell_count; i++)
-		if (!learned_materias[i]) {learned_materias[i] = materia->clone(); break; }
+		if (!learned_materias[i]) {learned_materias[i] = materia; break; }
 }
 
 AMateria *MateriaSource::createMateria(std::string const &type)
