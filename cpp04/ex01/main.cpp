@@ -15,6 +15,8 @@ int main()
 		else
 			animals[i] = new Cat();
 
+	std::cout << std::endl << std::endl << "----------------------" << std::endl << std::endl;
+
 	Animal copy_test = Animal();
 	std::cout << "Idea 0 before copy " << copy_test.get_brain()->get_idea(0) << std::endl;
 	
@@ -23,6 +25,8 @@ int main()
 	
 	copy_test = *tmp;
 	std::cout << "Idea 0 after copy " << copy_test.get_brain()->get_idea(0) << std::endl;
+
+	std::cout << std::endl << std::endl << "----------------------" << std::endl << std::endl;
 
 	for (size_t i = 0; i < animal_n; i++)
 		delete animals[i];
