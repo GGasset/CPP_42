@@ -59,6 +59,19 @@ long Bureaucrat::getGrade() const
 	return grade;
 }
 
+void Bureaucrat::signForm(Form form)
+{
+	try
+	{
+		form.beSigned(*this);
+		std::cout << *this << " signed " << form << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << *this << " could not sign form " << form << " because " << e.what() << std::endl; 
+	}
+}
+
 std::ostream &operator<<(std::ostream &stream, const Bureaucrat &in)
 {
 	std::stringstream ss;
