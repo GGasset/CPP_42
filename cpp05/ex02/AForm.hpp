@@ -13,6 +13,8 @@ class Bureaucrat;
 class AForm
 {
 private:
+	const std::string target;
+
 	const std::string name;
 	bool is_signed;
 	const long sign_req_grade;
@@ -20,6 +22,7 @@ private:
 
 protected:
 	AForm(std::string name, long sign_req_grade, long exec_req_grade);
+	AForm(std::string name, long sign_req_grade, long exec_req_grade, const std::string target);
 
 public:
 	AForm();
@@ -29,13 +32,14 @@ public:
 
 
 	std::string getName() const;
+	std::string getTarget() const;
 	bool get_is_signed() const;
 	long get_sign_req_grade() const;
 	long get_exec_req_grade() const;
 
 	void beSigned(Bureaucrat signer);
-	void execute(Bureaucrat &executor);
-	virtual void form_specific_execute(Bureaucrat &executor) = 0;
+	void execute(const Bureaucrat &executor) const;
+	virtual void form_specific_execute(const Bureaucrat &executor) const = 0;
 
 	class GradeTooHighException: public std::runtime_error
 	{

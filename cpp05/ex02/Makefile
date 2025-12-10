@@ -1,5 +1,5 @@
 
-CPP_FILES=main.cpp Bureaucrat.cpp AForm.cpp
+CPP_FILES=main.cpp Bureaucrat.cpp AForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp
 O_FILES=$(patsubst %.cpp,%.o,$(CPP_FILES))
 NAME=Form
 COMPILATION_FLAGS=-c -g -Wall -Werror -Wextra -std=c++98

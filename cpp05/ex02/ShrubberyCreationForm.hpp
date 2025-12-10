@@ -3,12 +3,13 @@
 #define  ShrubberyCreationForm_HPP
 
 #include "AForm.hpp"
+#include "fstream"
 
 class ShrubberyCreationForm: public AForm
 {
 public:
-	ShrubberyCreationForm();
-	void form_specific_execute(Bureaucrat &executor);
+	ShrubberyCreationForm(const std::string target);
+	void form_specific_execute(const Bureaucrat &executor) const;
 };
 
 #endif

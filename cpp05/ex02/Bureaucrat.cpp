@@ -73,6 +73,11 @@ void Bureaucrat::signForm(AForm *form)
 	}
 }
 
+void Bureaucrat::executeForm(AForm const &form) const
+{
+	form.execute(*this);
+}
+
 std::ostream &operator<<(std::ostream &stream, const Bureaucrat &in)
 {
 	std::stringstream ss;

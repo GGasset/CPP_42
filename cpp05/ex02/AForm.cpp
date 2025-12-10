@@ -24,9 +24,18 @@ AForm::AForm(std::string _name, long _sign_req_grade, long _exec_req_grade): nam
 	if (_sign_req_grade > 150 || _exec_req_grade > 150) throw AForm::GradeTooLowException();
 }
 
+AForm::AForm(std::string _name, long _sign_req_grade, long _exec_req_grade, const std::string target): name(_name), sign_req_grade(_sign_req_grade), exec_req_grade(_exec_req_grade), target(target)
+{
+}
+
 std::string AForm::getName() const
 {
 	return name;
+}
+
+std::string AForm::getTarget() const
+{
+	return target;
 }
 
 bool AForm::get_is_signed() const
@@ -51,7 +60,7 @@ void AForm::beSigned(Bureaucrat signer)
 	is_signed = true;
 }
 
-void AForm::execute(Bureaucrat &executor)
+void AForm::execute(const Bureaucrat &executor) const
 {
 	if (exec_req_grade < executor.getGrade())
 	{

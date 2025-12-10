@@ -31,6 +31,7 @@ public:
 	long getGrade() const;
 
 	void signForm(AForm *form);
+	void executeForm(AForm const &form) const;
 
 	class GradeTooHighException: public std::runtime_error
 	{
