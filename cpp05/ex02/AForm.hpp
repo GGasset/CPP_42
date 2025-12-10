@@ -28,7 +28,7 @@ public:
 	AForm();
 	AForm(const AForm &src);
 	AForm &operator=(AForm &src);
-	~AForm();
+	virtual ~AForm();
 
 
 	std::string getName() const;
@@ -39,7 +39,7 @@ public:
 
 	void beSigned(Bureaucrat signer);
 	void execute(const Bureaucrat &executor) const;
-	virtual void form_specific_execute(const Bureaucrat &executor) const = 0;
+	virtual void form_specific_execute() const = 0;
 
 	class GradeTooHighException: public std::runtime_error
 	{

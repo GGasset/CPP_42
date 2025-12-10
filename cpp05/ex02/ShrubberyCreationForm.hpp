@@ -9,7 +9,7 @@ class ShrubberyCreationForm: public AForm
 {
 public:
 	ShrubberyCreationForm(const std::string target);
-	void form_specific_execute(const Bureaucrat &executor) const;
+	void form_specific_execute() const;
 };
 
 #endif

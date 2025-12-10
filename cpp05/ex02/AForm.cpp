@@ -24,7 +24,7 @@ AForm::AForm(std::string _name, long _sign_req_grade, long _exec_req_grade): nam
 	if (_sign_req_grade > 150 || _exec_req_grade > 150) throw AForm::GradeTooLowException();
 }
 
-AForm::AForm(std::string _name, long _sign_req_grade, long _exec_req_grade, const std::string target): name(_name), sign_req_grade(_sign_req_grade), exec_req_grade(_exec_req_grade), target(target)
+AForm::AForm(std::string _name, long _sign_req_grade, long _exec_req_grade, const std::string target): target(target), name(_name), sign_req_grade(_sign_req_grade), exec_req_grade(_exec_req_grade)
 {
 }
 
@@ -72,7 +72,7 @@ void AForm::execute(const Bureaucrat &executor) const
 		std::cout << *this << " could not be executed by " << executor << " (form is not signed)" << std::endl;
 		throw AForm::FormNotSignedException();
 	}
-	form_specific_execute(executor);
+	form_specific_execute();
 	std::cout << executor << " executed " << *this << ". " << std::endl;
 }
 
@@ -82,7 +82,7 @@ AForm::GradeTooLowException::GradeTooLowException(): std::runtime_error("Form gr
 std::ostream &operator<<(std::ostream &stream, const AForm &in)
 {
 	std::stringstream ss;
-	ss << in.getName() << ", signed: " << in.get_is_signed() << ", sign grade: " << in.get_sign_req_grade() << ", execute grade: " << in.get_exec_req_grade() << ".";
+	ss << in.getName() << ", signed: " << in.get_is_signed() << ", sign grade: " << in.get_sign_req_grade() << ", execute grade: " << in.get_exec_req_grade();
 	stream << ss.str();
 	return stream;
 }

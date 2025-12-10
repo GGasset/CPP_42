@@ -20,4 +20,23 @@ int main()
 	ZaphodBeeblebrox.executeForm(*ShrubberyForm);
 	ZaphodBeeblebrox.executeForm(*RobotomyForm);
 	ZaphodBeeblebrox.executeForm(*PardonForm);
+
+	Bureaucrat RigobertoMenendez = Bureaucrat("Rigoberto Menendez", 150);
+	AForm *RigobertoPardonForm = new PresidentialPardonForm("Rigoberto Menendez");
+	try
+	{
+		RigobertoMenendez.signForm(RigobertoPardonForm);
+		RigobertoMenendez.executeForm(*RigobertoPardonForm);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	ZaphodBeeblebrox.signForm(RigobertoPardonForm);
+	ZaphodBeeblebrox.executeForm(*RigobertoPardonForm);
+
+	delete PardonForm;
+	delete RobotomyForm;
+	delete ShrubberyForm;
+	delete RigobertoPardonForm;
 }

@@ -4,7 +4,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string trg): AForm("Shru
 {
 }
 
-void ShrubberyCreationForm::form_specific_execute(const Bureaucrat &executor) const
+void ShrubberyCreationForm::form_specific_execute() const
 {
 	std::ofstream shrubery;
 
