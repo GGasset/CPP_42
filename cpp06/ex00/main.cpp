@@ -1,0 +1,16 @@
+#include "ScalarConverter.hpp"
+
+
+int main(int argc, char **argv)
+{
+	if (argc != 2)
+	{
+		std::cout << "Usage: ./convert [scalar literal]" << std::endl;
+		return 0;
+	}
+
+	std::string literal = argv[1];
+	ScalarConverter::convert(literal);
+}
+
+

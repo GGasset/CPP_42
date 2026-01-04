@@ -35,10 +35,17 @@ private:
 		double number;
 
 		ScalarRepresentation(ScalarConverter::literal_type type, double number);
+		ScalarRepresentation(ScalarRepresentation &src);
+		ScalarRepresentation &operator=(ScalarRepresentation &src);
+		~ScalarRepresentation();
+
 		void print();
 	};
 
 	ScalarConverter();
+	ScalarConverter(ScalarConverter &src);
+	ScalarConverter &operator=(ScalarConverter &src);
+	~ScalarConverter();
 public:
 
 	static void convert(std::string literal);

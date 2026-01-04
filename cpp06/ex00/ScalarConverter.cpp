@@ -1,5 +1,18 @@
 #include "ScalarConverter.hpp"
 
+void ScalarConverter::print(std::string c, std::string i, std::string f, std::string d)
+{
+	std::cout << "char: " << c << std::endl;
+	std::cout << "int: " << i << std::endl;
+	std::cout << "float: " << f << std::endl;
+	std::cout << "double: " << d << std::endl;
+}
+
+ScalarConverter::ScalarConverter() {}
+ScalarConverter::ScalarConverter(ScalarConverter &src) {*this = src;}
+ScalarConverter &ScalarConverter::operator=(ScalarConverter &src) {return src;}
+ScalarConverter::~ScalarConverter() {}
+
 void ScalarConverter::convert(std::string literal)
 {
 	std::string str;
@@ -19,9 +32,9 @@ void ScalarConverter::convert(std::string literal)
 	std::string lower;
 	for (size_t i = 0; i < str.size(); i++) lower += std::tolower(str[i]);
 
-	const char *special_literals[] = {"-inff", "inff", "nanf", "minf", "inf", "nan", 0};
+	const char *special_literals[] = {"-inff", "+inff", "nanf", "-inf", "+inf", "nan", 0};
 	size_t special_i = 0;
-	for (size_t i = 0; special_literals[i] && !special_i; i++) if (special_literals[i] == lower) special_i = i;
+	for (size_t i = 0; special_literals[i] && !special_i; i++) if (special_literals[i] == lower) special_i = i + 1;
 	if (special_i)
 	{
 		switch (special_i - 1)
@@ -43,6 +56,7 @@ void ScalarConverter::convert(std::string literal)
 		
 		default: throw;
 		}
+		return;
 	}
 
 	if (!isdigit(str[0]) && str.size() == 1) // Char
@@ -80,7 +94,16 @@ void ScalarConverter::convert(std::string literal)
 
 	if (last_char != 'f') // Double
 	{
+		double d = std::atof(str.data());
+		long double ld = std::strtold(str.data(), 0);
 
+		if ((long double)d != ld)
+		{
+			std::cerr << "Overflow with provided literal" << std::endl;
+			return;
+		}
+		ScalarRepresentation(double_prec_point, d).print();
+		return;
 	}
 
 	// Float
@@ -88,7 +111,7 @@ void ScalarConverter::convert(std::string literal)
 	double n = std::atof(str.data());
 	if ((float)n != n)
 	{
-		std::cerr << "Overflow with provided literal" << std::endl;;
+		std::cerr << "Overflow with provided literal" << std::endl;
 		return;
 	}
 	ScalarRepresentation(floating_point, (float)n).print();
