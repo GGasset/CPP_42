@@ -1,5 +1,5 @@
 
-CPP_FILES=main.cpp ScalarConverter.cpp  ScalarConverter.hpp  ScalarRepresentation.cpp
+CPP_FILES=main.cpp ScalarConverter.cpp ScalarRepresentation.cpp
 O_FILES=$(patsubst %.cpp,%.o,$(CPP_FILES))
 NAME=convert
 COMPILATION_FLAGS=-c -g -Wall -Werror -Wextra -std=c++98
