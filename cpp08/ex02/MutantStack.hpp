@@ -19,10 +19,8 @@ public:
 	typedef typename std::stack<T, Container>::container_type::const_iterator const_iterator; 
 
 	FORWARD0(begin, iterator);
-	FORWARD0(cbegin, const_iterator);
 	
 	FORWARD0(end, iterator);
-	FORWARD0(cend, const_iterator);
 };
 
 #endif
