@@ -7,7 +7,7 @@
 
 #define TYPE int
 
-void print(TYPE &n)
+void print(const TYPE &n)
 {
 	std::cout << n << " ";
 }
@@ -30,5 +30,11 @@ int main()
 
 	std::for_each(stack.begin(), stack.end(), print);
 	std::cout << std::endl;
+
+	const MutantStack<TYPE> const_stack(stack);
+	MutantStack<TYPE>::const_iterator citer = const_stack.begin();
+	MutantStack<TYPE>::const_iterator cend = const_stack.end();
+
+	std::for_each(citer, cend, print);
 }
 
