@@ -1,7 +1,7 @@
 
-CPP_FILES=main.cpp RPN.cpp
+CPP_FILES=main.cpp
 O_FILES=$(patsubst %.cpp,%.o,$(CPP_FILES))
-NAME=RPN
+NAME=btc
 COMPILATION_FLAGS=-c -g -Wall -Werror -Wextra -std=c++98
 
 all: ${NAME}

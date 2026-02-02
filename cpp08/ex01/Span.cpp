@@ -1,6 +1,8 @@
 
 #include "Span.hpp"
+#include <algorithm>
 #include <exception>
+#include <vector>
 
 Span::Span()
 {
@@ -44,9 +46,12 @@ unsigned int Span::shortestSpan()
 {
 	if (numbers.size() <= 1) throw std::exception();
 
-	int prev = numbers[0];
+	std::vector<int> tmp = numbers;
+	std::sort(tmp.begin(), tmp.end());
+
+	int prev = tmp[0];
 	unsigned int out = (unsigned int)-1;
-	for (std::vector<int>::iterator it = ++numbers.begin(); it != numbers.end(); prev = *it, it++)
+	for (std::vector<int>::iterator it = ++tmp.begin(); it != tmp.end(); prev = *it, it++)
 	{
 		unsigned int span = abs((long)prev - (long)*it);
 		if (span < out) out = span;
@@ -58,12 +63,6 @@ unsigned int Span::longestSpan()
 {
 	if (numbers.size() <= 1) throw  std::exception();
 
-	int prev = numbers[0];
-	unsigned int out = 0;
-	for (std::vector<int>::iterator it = ++numbers.begin(); it != numbers.end(); prev = *it, it++)
-	{
-		unsigned int span = abs((long)prev - (long)*it);
-		if (span > out) out = span;
-	}
+	unsigned int out = *std::max_element(numbers.begin(), numbers.end()) - *std::min_element(numbers.begin(), numbers.end());
 	return out;
 }

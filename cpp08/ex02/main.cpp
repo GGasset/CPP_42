@@ -21,7 +21,7 @@ int main()
 {
 	MutantStack<TYPE> stack;
 	for (size_t i = 0; i < (int)1e2; i++) stack.push(std::rand());
-	
+
 	std::for_each(stack.begin(), stack.end(), print);
 	std::cout << std::endl;
 	std::cout << std::endl;
@@ -36,5 +36,6 @@ int main()
 	MutantStack<TYPE>::const_iterator cend = const_stack.end();
 
 	std::for_each(citer, cend, print);
-}
 
+	std::stack<int> s(stack);
+}
