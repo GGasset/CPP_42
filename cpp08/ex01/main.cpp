@@ -2,6 +2,7 @@
 #include "Span.hpp"
 #include "cstdlib"
 #include "iostream"
+#include <exception>
 
 #define SIZE (unsigned int)1e6
 int main()
@@ -16,7 +17,17 @@ int main()
 	std::vector<int> tmp;
 	for (size_t i = 0; i < SIZE; i++) tmp.push_back(rand());
 	span.addRange(tmp.begin(), tmp.end());
+
 	std::cout << "Shortest span: " << span.shortestSpan() << std::endl;
 	std::cout << "Longest span: " << span.longestSpan() << std::endl;
-}
 
+	try
+	{
+		span = Span(SIZE - 1);
+		span.addRange(tmp.begin(), tmp.end());
+	}
+	catch (std::exception &e)
+	{
+		std::cout << "Error: " << e.what() << std::endl;
+	}
+}

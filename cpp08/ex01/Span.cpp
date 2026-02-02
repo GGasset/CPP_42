@@ -1,5 +1,6 @@
 
 #include "Span.hpp"
+#include <exception>
 
 Span::Span()
 {
@@ -33,7 +34,7 @@ Span::~Span()
 
 void Span::addNumber(int v)
 {
-	if (numbers.size() + 1 > max_size) throw;
+	if (numbers.size() + 1 > max_size) throw std::exception();
 	numbers.push_back(v);
 }
 
@@ -41,7 +42,7 @@ unsigned int abs(long x) { return (unsigned int)(x * (1 - 2 * (x < 0))); }
 
 unsigned int Span::shortestSpan()
 {
-	if (numbers.size() <= 1) throw;
+	if (numbers.size() <= 1) throw std::exception();
 
 	int prev = numbers[0];
 	unsigned int out = (unsigned int)-1;
@@ -55,7 +56,7 @@ unsigned int Span::shortestSpan()
 
 unsigned int Span::longestSpan()
 {
-	if (numbers.size() <= 1) throw;
+	if (numbers.size() <= 1) throw  std::exception();
 
 	int prev = numbers[0];
 	unsigned int out = 0;
@@ -66,4 +67,3 @@ unsigned int Span::longestSpan()
 	}
 	return out;
 }
-
