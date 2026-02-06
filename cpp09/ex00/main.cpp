@@ -14,7 +14,7 @@ static std::string read_file(const std::string &filename, int &err)
 	std::string file_contents;
 
 	std::fstream file;
-	file.open(filename);
+	file.open(filename.c_str());
 	if (!file.is_open() || !file.good()) {err = true; return "";}
 
 	size_t bytes_read;
@@ -23,6 +23,7 @@ static std::string read_file(const std::string &filename, int &err)
 	do {
 		for (size_t i = 0; i < buff_size + 1; i++) tmp[i] = 0;
 		file.read(tmp, buff_size);
+		bytes_read = file.gcount();
 
 		file_contents += tmp;
 
@@ -55,7 +56,8 @@ static std::list<std::string> read_lines(const std::string &filename, int &err)
 void search_value(dated_quantity btc_possesion, std::list<dated_quantity> btc_values)
 {
 	bool found_upper_match = false;
-	dated_quantity match{.d = date(1.5e3,12, 31)};
+	dated_quantity match;
+	match.d = date(1.5e3,12, 31);
 	for (std::list<dated_quantity>::iterator it = btc_values.begin(); it != btc_values.end(); it++)
 	{
 		if ((*it).d >= btc_possesion.d && it->d < match.d) {match = *it; found_upper_match = true;}

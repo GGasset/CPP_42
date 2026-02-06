@@ -1,7 +1,6 @@
 
 #include "BitcoinExchange.hpp"
 #include <cctype>
-#include <cstdint>
 #include <exception>
 
 static int is_valid_date(date d)
@@ -35,7 +34,7 @@ date::date()
 	for (size_t i = 0; i < 3; i++) ymd[i] = 0;
 }
 
-date::date(uint16_t year, uint16_t month, uint16_t day)
+date::date(unsigned short year, unsigned short month, unsigned short day)
 {
 	ymd[0] = year;
 	ymd[1] = month;
@@ -87,14 +86,14 @@ bool date::operator>=(const date &other) const
 }
 
 
-uint16_t *date::get_ymd()
+unsigned short *date::get_ymd()
 {
 	return ymd;
 }
 
 std::ostream &operator<<(std::ostream &s, date &d)
 {
-	uint16_t *ymd = d.get_ymd();
+	unsigned short *ymd = d.get_ymd();
 
 	for (size_t i = 0; i < 3; i++)
 	{
@@ -124,6 +123,19 @@ void expect_str(const std::string &str, size_t &str_pos, const std::string expec
 	return;
 }
 
+static int stoi(std::string in, size_t *len = 0)
+{
+	std::stringstream ss;
+	if (len) *len = 0;
+	for (size_t i = 0; std::isdigit(in[i]); i++, len? (*len)++ : 0)
+	{
+		ss << in[i];
+	}
+	int out = 0;
+	ss >> out;
+	return out;
+}
+
 float parse_check_value(const std::string &str, size_t &str_pos, int &err, bool print_err, bool is_date)
 {
 	err = 0;
@@ -135,12 +147,15 @@ float parse_check_value(const std::string &str, size_t &str_pos, int &err, bool 
 
 		while (tmp[0] == '0') tmp.erase(0, 1);
 
-		size_t integer_len = 0;
-		out = (float)std::stoi(tmp, &integer_len);
-		tmp.erase(0, integer_len);
-		if (integer_len == 0 && (!is_date || tmp[0] != '.')) {
-			if (print_err) std::cout << "Expected number at line \"" << str << "\"" << std::endl;
-			err = true; return 0;
+		if (std::isdigit(tmp[0]))
+		{
+			size_t integer_len = 0;
+			out = (float)stoi(tmp, &integer_len);
+			tmp.erase(0, integer_len);
+			if (integer_len == 0 && (!is_date || tmp[0] != '.')) {
+				if (print_err) std::cout << "Expected number at line \"" << str << "\"" << std::endl;
+				err = true; return 0;
+			}
 		}
 
 		if (tmp[0] == '.' && !is_date)
@@ -150,7 +165,7 @@ float parse_check_value(const std::string &str, size_t &str_pos, int &err, bool 
 			size_t removed_0_n = 0;
 			while (tmp[0] == '0') {tmp.erase(0, 1); removed_0_n++;}
 
-			float decimal_part = std::stoi(tmp);
+			float decimal_part = stoi(tmp);
 			while (decimal_part >= 1) decimal_part /= 10;
 			while (removed_0_n) {decimal_part /= 10; removed_0_n--;}
 
@@ -163,7 +178,7 @@ float parse_check_value(const std::string &str, size_t &str_pos, int &err, bool 
 		return 0;
 	}
 
-	if (out <= 0 || out >= 1000) {
+	if (out < 0 || out >= 1000) {
 		if (print_err) std::cout << "Invalid value " << out << " at line \"" << str << "\"" << std::endl;
 		err = true;
 		return 0;
@@ -190,7 +205,7 @@ float parse_check_value(const std::string &str, size_t &str_pos, int &err, bool 
 
 date parse_check_date(const std::string &str, size_t &str_pos, int &err, bool print_err)
 {
-	uint16_t values[3];
+	unsigned short values[3];
 
 	err = 0;
 	values[0] = parse_check_value(str, str_pos, err, print_err, true);
@@ -221,7 +236,7 @@ date parse_check_date(const std::string &str, size_t &str_pos, int &err, bool pr
 
 dated_quantity parse_check_infile_line(const std::string &line, int &err)
 {
-	dated_quantity out {};
+	dated_quantity out;
 
 	size_t str_pos = 0;
 	date d = parse_check_date(line, str_pos, err, true);
@@ -238,7 +253,7 @@ dated_quantity parse_check_infile_line(const std::string &line, int &err)
 
 dated_quantity parse_check_db_file_line(const std::string &line, int &err)
 {
-	dated_quantity out {};
+	dated_quantity out;
 
 	size_t str_pos = 0;
 	date d = parse_check_date(line, str_pos, err, false);

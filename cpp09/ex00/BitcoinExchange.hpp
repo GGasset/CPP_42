@@ -2,19 +2,21 @@
 #ifndef PARSING_HPP
 #define PARSING_HPP
 
-#include <cstdint>
+//#include <cstdint>
 #include <iostream>
 #include <string>
+#include <cctype>
+#include <sstream>
 
 class date
 {
 private:
-	uint16_t ymd[3];
+	unsigned short ymd[3];
 
 public:
 	// Inits to 0
 	date();
-	date(uint16_t year, uint16_t month, uint16_t day);
+	date(unsigned short year, unsigned short month, unsigned short day);
 	date(const date &src);
 	date &operator=(const date &src);
 	~date();
@@ -25,7 +27,7 @@ public:
 	bool operator>(const date &other) const;
 	bool operator>=(const date &other) const;
 
-	uint16_t *get_ymd();
+	unsigned short *get_ymd();
 };
 
 std::ostream &operator<<(std::ostream &, date &);
