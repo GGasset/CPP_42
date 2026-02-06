@@ -123,7 +123,7 @@ void expect_str(const std::string &str, size_t &str_pos, const std::string expec
 	return;
 }
 
-static int stoi(std::string in, size_t *len = 0)
+static int mstoi(std::string in, size_t *len = 0)
 {
 	std::stringstream ss;
 	if (len) *len = 0;
@@ -150,7 +150,7 @@ float parse_check_value(const std::string &str, size_t &str_pos, int &err, bool 
 		if (std::isdigit(tmp[0]))
 		{
 			size_t integer_len = 0;
-			out = (float)stoi(tmp, &integer_len);
+			out = (float)mstoi(tmp, &integer_len);
 			tmp.erase(0, integer_len);
 			if (integer_len == 0 && (!is_date || tmp[0] != '.')) {
 				if (print_err) std::cout << "Expected number at line \"" << str << "\"" << std::endl;
@@ -165,7 +165,7 @@ float parse_check_value(const std::string &str, size_t &str_pos, int &err, bool 
 			size_t removed_0_n = 0;
 			while (tmp[0] == '0') {tmp.erase(0, 1); removed_0_n++;}
 
-			float decimal_part = stoi(tmp);
+			float decimal_part = mstoi(tmp);
 			while (decimal_part >= 1) decimal_part /= 10;
 			while (removed_0_n) {decimal_part /= 10; removed_0_n--;}
 
