@@ -5,6 +5,8 @@
 #include "cstddef"
 #include "vector"
 #include "iterator"
+#include <algorithm>
+#include <exception>
 
 class Span
 {
@@ -32,12 +34,14 @@ public:
 template<class inIt>
 void Span::addRange(inIt begin, inIt end)
 {
+	size_t n_elements = std::distance(begin, end);
+	if (numbers.size() + n_elements > max_size) throw std::exception();
+
 	while (begin != end)
 	{
-		addNumber(*begin);
+		numbers.push_back(*begin);
 		begin++;
 	}
 }
 
 #endif
-
