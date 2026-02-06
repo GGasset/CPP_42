@@ -1,5 +1,5 @@
 
-CPP_FILES=main.cpp
+CPP_FILES=main.cpp BitcoinExchange.cpp
 O_FILES=$(patsubst %.cpp,%.o,$(CPP_FILES))
 NAME=btc
 COMPILATION_FLAGS=-c -g -Wall -Werror -Wextra -std=c++98
