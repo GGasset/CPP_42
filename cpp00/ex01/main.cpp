@@ -11,7 +11,7 @@ static std::string get_input(std::string prompt)
 	{
 		std::string tmp;
 		std::getline(std::cin, tmp, '\n');
-		
+
 
 		int empty = true;
 		for (size_t i = 0; i < tmp.length(); i++)
@@ -47,15 +47,15 @@ void SEARCH(PhoneBook contacts)
 
 	contacts.print_contacts();
 
-	std::string raw_index = 
+	std::string raw_index =
 		get_input("Enter contact index for more info.\nIndex: ");
-	
+
 	size_t err = 0;
-	for (size_t i = 0; i < raw_index.length() || err; i++) 
+	for (size_t i = 0; i < raw_index.length() || err; i++)
 		err = (raw_index[i] < '0' || raw_index[i] > '9');
 
 	long long index = std::atoll(raw_index.data());
-	if (index >= (long long)contacts.get_contact_count() 
+	if (index >= (long long)contacts.get_contact_count()
 		|| index < 0 || err)
 	{
 		std::cout << "Invalid Index.\n" << std::endl;
@@ -72,14 +72,14 @@ int main()
 	while (true)
 	{
 		std::cout << std::endl
-			<< "What to do?" << std::endl 
+			<< "What to do?" << std::endl
 			<< "ADD" << std::endl
 			<< "SEARCH" << std::endl
 			<< "EXIT" << std::endl;
 
 		std::string decision;
 		std::cin >> decision;
-		
+
 		if		(!decision.compare("ADD"))		ADD(&contacts);
 		else if	(!decision.compare("SEARCH"))	SEARCH(contacts);
 		else if	(!decision.compare("EXIT"))		return 1;
