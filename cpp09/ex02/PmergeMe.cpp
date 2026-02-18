@@ -249,7 +249,7 @@ std::deque<int> ford_jonhson(std::deque<int> nums)
 		n_groups /= group_size;
 
 		size_t group_i = 0;
-		for (size_t i = 0 ; i < nums.size() && group_i < n_groups; i++ )
+		for (size_t i = 0 ; group_i < n_groups && i < nums.size(); i++ )
 		{
 			int num = nums[i];
 			bool insert_to_S = i == 0 || S[S.size() - 1] < num;
