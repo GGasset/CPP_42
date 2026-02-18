@@ -44,10 +44,11 @@ std::vector<int> ford_jonhson(std::vector<int> nums)
 		size_t n_groups = nums.size() - remaining_elem_n;
 		n_groups /= group_size;
 
-		for (size_t i = 0 ; i < nums.size() && n_groups; i++ )
+		size_t group_i = 0;
+		for (size_t i = 0 ; i < nums.size() && group_i < n_groups; i++ )
 		{
 			int num = nums[i];
-			bool insert_to_S = i == 0 || S[S.size() - 1] < num;//!group_i || group_i % 2;
+			bool insert_to_S = i == 0 || S[S.size() - 1] < num;
 			std::vector<int> &inserted = insert_to_S? S : to_insert;
 			inserted.push_back(nums[i]);
 		}
@@ -247,10 +248,11 @@ std::deque<int> ford_jonhson(std::deque<int> nums)
 		size_t n_groups = nums.size() - remaining_elem_n;
 		n_groups /= group_size;
 
-		for (size_t i = 0 ; i < nums.size() && n_groups; i++ )
+		size_t group_i = 0;
+		for (size_t i = 0 ; i < nums.size() && group_i < n_groups; i++ )
 		{
 			int num = nums[i];
-			bool insert_to_S = i == 0 || S[S.size() - 1] < num;//!group_i || group_i % 2;
+			bool insert_to_S = i == 0 || S[S.size() - 1] < num;
 			std::deque<int> &inserted = insert_to_S? S : to_insert;
 			inserted.push_back(nums[i]);
 		}
