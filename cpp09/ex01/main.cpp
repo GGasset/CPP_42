@@ -21,8 +21,7 @@ int main(int argc, char **argv)
 	for (size_t i = 0; argv[1][i]; i++, expect_space = !expect_space)
 		if (!expect_space) rpn_in.push(argv[1][i]);
 
-	int out = RPN(rpn_in, &err);
+	int out = RPN(rpn_in, err);
 	if (err) { std::cerr << "Error" << std::endl; return 0;}
 	std::cout << out << std::endl;
 }
-

@@ -1,53 +1,47 @@
 
 #include "RPN.hpp"
+#include <cctype>
 
-#define ERR() {*err = true; return 0;}
-#define EXPECT_NBR(nbr) if (nbr < '0' || nbr > '9') ERR();
-#define EXPECT_OP(op) if (op != '+' && op != '-' && op != '*' && op != '/') ERR();
-#define DIG(c) c - '0'; EXPECT_NBR(c);
+#define IS_OP(op) (op == '+' || op == '-' || op == '*' || op == '/')
+#define DIG(c) c - '0'
 
-#define DEQUEUE(queue, var) var = queue.front(); queue.pop();
-#define UNSTACK(queue, var)
-
-int RPN(std::queue<char> in, int *err)
+int RPN(std::queue<char> parsed, int &err)
 {
-	if (!err) throw;
-	*err = 0;
-	if (in.size() < 3) ERR();
+	std::stack<int> s;
 
-	char tmp;
-	DEQUEUE(in, tmp);
-	int out = DIG(tmp);
-
-	while (in.size())
+	while (parsed.size())
 	{
-		DEQUEUE(in, tmp);
-		int operand = DIG(tmp);
+		char c = parsed.front();
+		parsed.pop();
 
-		if (!in.size()) ERR();
+		if (std::isdigit(c)) { s.push(DIG(c)); continue; }
 
-		DEQUEUE(in, tmp);
-		EXPECT_OP(tmp);
-		char op = tmp;
+		if (s.size() < 2 || !IS_OP(c)) { err = true; return 0; }
 
-		switch (op)
-		{
+		int b = s.top();
+		s.pop();
+
+		int a = s.top();
+		s.pop();
+
+		int result = 0;
+		switch (c) {
 		case '+':
-			out += operand;
+			result = a + b;
 			break;
 		case '-':
-			out -= operand;
-			break;
-		case '*':
-			out *= operand;
+			result = a - b;
 			break;
 		case '/':
-			if (!operand) ERR();
-			out /= operand;
+			result = a / b;
 			break;
-		default: throw;
-		};
+		case '*':
+			result = a * b;
+		default:
+			break;
+		}
+		s.push(result);
 	}
-	return out;
+	if (!s.size() || s.size() > 1) {err = true; return 0;}
+	return s.top();
 }
-
