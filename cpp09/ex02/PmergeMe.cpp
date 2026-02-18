@@ -44,15 +44,13 @@ std::vector<int> ford_jonhson(std::vector<int> nums)
 		size_t n_groups = nums.size() - remaining_elem_n;
 		n_groups /= group_size;
 
-		size_t group_start_i = 0;
-		for (size_t group_i = 0; group_i < n_groups; group_i++, group_start_i += group_size)
+		for (size_t i = 0 ; i < nums.size() && n_groups; i++ )
 		{
-			bool insert_to_S = !group_i || group_i % 2;
+			int num = nums[i];
+			bool insert_to_S = i == 0 || S[S.size() - 1] < num;//!group_i || group_i % 2;
 			std::vector<int> &inserted = insert_to_S? S : to_insert;
-
-			for (size_t i = group_start_i; i < group_start_i + group_size; i++) inserted.push_back(nums[i]);
+			inserted.push_back(nums[i]);
 		}
-		if (is_nums_odd && group_size > 1) to_insert.push_back(nums[nums.size() - 1]);
 
 		// Binary search insertion
 		while (to_insert.size())
@@ -65,7 +63,6 @@ std::vector<int> ford_jonhson(std::vector<int> nums)
 			while (bottom + 1 < top)
 			{
 				compare_pos = (top - bottom) / 2 + bottom;
-				//if (num <= S[compare_pos + 1] && num >= S[compare_pos]) break;
 				if (num < S[compare_pos]) top = compare_pos;
 				else if (num > S[compare_pos]) bottom = compare_pos;
 				else break;
@@ -79,9 +76,6 @@ std::vector<int> ford_jonhson(std::vector<int> nums)
 			to_insert.erase(to_insert.begin());
 		}
 
-
-		for (size_t i = 0; i < remaining_elem_n; i++) S.push_back(nums[nums.size() - 1 - remaining_elem_n + i - is_nums_odd]);
-
 		nums = S;
 	}
 	return nums;
@@ -89,7 +83,7 @@ std::vector<int> ford_jonhson(std::vector<int> nums)
 
 
 // If keys, ignore nums
-std::vector<int> ford_jonhson(std::vector<int> nums, std::vector<size_t> *keys)
+/*std::vector<int> ford_jonhson(std::vector<int> nums, std::vector<size_t> *keys)
 {
 	if (nums.size() <= 1)
 	{
@@ -218,10 +212,74 @@ std::vector<int> ford_jonhson(std::vector<int> nums, std::vector<size_t> *keys)
 	}
 
 	return S;
-}
+}*/
 
 std::deque<int> ford_jonhson(std::deque<int> nums)
 {
-	std::deque<int> out;
+	size_t max_group_size = 0;
+	for (size_t group_size = 1; nums.size() / 2 >= group_size; group_size <<= 1)
+	{
+		size_t n_groups = nums.size() / group_size;
+		size_t n_comparisons = n_groups / 2;
+
+		size_t starting_index = 0;
+		for (size_t swap_i = 0; swap_i < n_comparisons; swap_i++, starting_index += (group_size << 1))
+		{
+			size_t comp_1_i = starting_index + group_size - 1;
+			size_t comp_2_i = starting_index + (group_size << 1) - 1;
+
+			bool do_swap = nums[comp_1_i] > nums[comp_2_i];
+			for (size_t i = 0; do_swap && i < group_size; i++)
+				std::swap(nums[starting_index + i],  nums[starting_index + group_size + i]);
+		}
+		max_group_size = group_size;
+	}
+
+	for (size_t group_size = max_group_size; group_size; group_size >>= 1)
+	{
+		std::deque<int> S;
+		std::deque<int> to_insert;
+
+		bool is_nums_odd = nums.size() & 1;
+		size_t remaining_elem_n = nums.size() % group_size;
+		remaining_elem_n -= is_nums_odd * (remaining_elem_n != 0);
+
+		size_t n_groups = nums.size() - remaining_elem_n;
+		n_groups /= group_size;
+
+		for (size_t i = 0 ; i < nums.size() && n_groups; i++ )
+		{
+			int num = nums[i];
+			bool insert_to_S = i == 0 || S[S.size() - 1] < num;//!group_i || group_i % 2;
+			std::deque<int> &inserted = insert_to_S? S : to_insert;
+			inserted.push_back(nums[i]);
+		}
+
+		// Binary search insertion
+		while (to_insert.size())
+		{
+			int num = to_insert[0];
+
+			size_t bottom = 0;
+			size_t top = S.size();
+			size_t compare_pos = 0;
+			while (bottom + 1 < top)
+			{
+				compare_pos = (top - bottom) / 2 + bottom;
+				if (num < S[compare_pos]) top = compare_pos;
+				else if (num > S[compare_pos]) bottom = compare_pos;
+				else break;
+			}
+			compare_pos = (top - bottom) / 2 + bottom;
+			compare_pos += num > S[compare_pos];
+
+			if (compare_pos == S.size()) S.push_back(num);
+			else						 S.insert(S.begin() + compare_pos, num);
+
+			to_insert.erase(to_insert.begin());
+		}
+
+		nums = S;
+	}
 	return nums;
 }
