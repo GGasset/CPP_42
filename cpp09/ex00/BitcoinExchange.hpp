@@ -28,6 +28,7 @@ public:
 	bool operator>=(const date &other) const;
 
 	unsigned short *get_ymd();
+	const unsigned short *get_ymd() const;
 };
 
 std::ostream &operator<<(std::ostream &, date &);

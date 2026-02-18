@@ -3,7 +3,7 @@
 #include <cctype>
 #include <exception>
 
-static int is_valid_date(date d)
+static int is_valid_date(const date &d)
 {
 	int year = d.get_ymd()[0];
 	bool is_leap = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
@@ -23,15 +23,15 @@ static int is_valid_date(date d)
 	month_lengths[11] = 31;
 
 	int month = d.get_ymd()[1];
-	if (month >= 12) return 0;
+	if (month > 12 || month <= 0) return 0;
 
 	int day = d.get_ymd()[2];
-	return day >= month_lengths[month];
+	return day <= month_lengths[month - 1] && day > 0;
 }
 
 date::date()
 {
-	for (size_t i = 0; i < 3; i++) ymd[i] = 0;
+	for (size_t i = 0; i < 3; i++) ymd[i] = 1;
 }
 
 date::date(unsigned short year, unsigned short month, unsigned short day)
@@ -44,7 +44,9 @@ date::date(unsigned short year, unsigned short month, unsigned short day)
 
 date::date(const date &src)
 {
-	*this = src;
+	if (!is_valid_date(src)) throw std::exception();
+
+	for (size_t i = 0; i < 3; i++) ymd[i] = src.ymd[i];
 }
 
 date &date::operator=(const date &src)
@@ -87,6 +89,11 @@ bool date::operator>=(const date &other) const
 
 
 unsigned short *date::get_ymd()
+{
+	return ymd;
+}
+
+const unsigned short *date::get_ymd() const
 {
 	return ymd;
 }
@@ -178,7 +185,7 @@ float parse_check_value(const std::string &str, size_t &str_pos, int &err, bool 
 		return 0;
 	}
 
-	if (out < 0 || out >= 1000) {
+	if (!is_date && (out < 0 || out >= 1000)) {
 		if (print_err) std::cout << "Invalid value " << out << " at line \"" << str << "\"" << std::endl;
 		err = true;
 		return 0;
@@ -205,7 +212,7 @@ float parse_check_value(const std::string &str, size_t &str_pos, int &err, bool 
 
 date parse_check_date(const std::string &str, size_t &str_pos, int &err, bool print_err)
 {
-	unsigned short values[3];
+	int values[3];
 
 	err = 0;
 	values[0] = parse_check_value(str, str_pos, err, print_err, true);
@@ -243,7 +250,7 @@ dated_quantity parse_check_infile_line(const std::string &line, int &err)
 	if (err) return out;
 	expect_str(line, str_pos, " | ", err, true);
 	if (err) return out;
-	float quantity = parse_check_value(line, str_pos, err, true, true);
+	float quantity = parse_check_value(line, str_pos, err, true, false);
 	if (err) return out;
 
 	out.d = d;

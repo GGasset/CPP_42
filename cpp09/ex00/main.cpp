@@ -55,18 +55,23 @@ static std::list<std::string> read_lines(const std::string &filename, int &err)
 
 void search_value(dated_quantity btc_possesion, std::list<dated_quantity> btc_values)
 {
-	bool found_upper_match = false;
+	bool matched = false;
 	dated_quantity match;
-	match.d = date(1.5e3,12, 31);
-	for (std::list<dated_quantity>::iterator it = btc_values.begin(); it != btc_values.end(); it++)
-	{
-		if ((*it).d >= btc_possesion.d && it->d < match.d) {match = *it; found_upper_match = true;}
-	}
-	if (!found_upper_match) match.d = date();
-	for (std::list<dated_quantity>::iterator it = btc_values.begin(); it != btc_values.end() && !found_upper_match; it++)
-	{
-		if (it->d >= match.d) match = *it;
-	}
+	match.d = date();
+
+	for (std::list<dated_quantity>::iterator it = btc_values.begin(); it != btc_values.end() && !matched; it++)
+		if (!btc_possesion.d.compare(it->d))
+			{ match = *it; matched = true; }
+
+	bool lower_match = false;
+	for (std::list<dated_quantity>::iterator it = btc_values.begin(); it != btc_values.end() && !matched; it++)
+		if (it->d > match.d && it->d < btc_possesion.d)
+			{ match = *it; lower_match = true; }
+
+	if (!matched && !lower_match) match = *btc_values.begin();
+	for (std::list<dated_quantity>::iterator it = ++btc_values.begin(); it != btc_values.end() && !matched && !lower_match; it++)
+		if (it->d > match.d)
+			{ match = *it; }
 
 	std::cout << btc_possesion.d << " => " << btc_possesion.n << " = " << btc_possesion.n * match.n << std::endl;
 }
@@ -113,11 +118,12 @@ int main(int argc, char **argv)
 		if (db_iter == db_contents.begin())
 		{
 			if  (*db_contents.begin() != "date,exchange_rate") {std::cout << "Invalid db header. Ignoring it..." << std::endl;}
-			else continue;
+			continue;
 		}
 		err = 0;
-		btc_values.push_back(parse_check_db_file_line(*db_iter, err));
+		dated_quantity tmp = parse_check_db_file_line(*db_iter, err);
 		if (err) continue;
+		btc_values.push_back(tmp);
 
 		valid_db_lines++;
 	}
