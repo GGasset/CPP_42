@@ -33,6 +33,7 @@ int RPN(std::queue<char> parsed, int &err)
 			result = a - b;
 			break;
 		case '/':
+   if (b == 0) { std::cout<<"Division by 0 "; err=true; return 0;}
 			result = a / b;
 			break;
 		case '*':
